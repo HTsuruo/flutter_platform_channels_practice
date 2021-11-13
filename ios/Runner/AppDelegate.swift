@@ -20,6 +20,12 @@ import Flutter
           result(FlutterMethodNotImplemented)
           return
         }
+        let args = call.arguments as? Dictionary<String, Any>
+          if(args != nil){
+              let name = args!["name"]
+              let age = args!["age"]
+              print("iOS: name = \(name), age = \(age)")
+          }
         self?.receiveBatteryLevel(result: result)
       })
       
