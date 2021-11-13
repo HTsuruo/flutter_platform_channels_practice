@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 16,
             ),
-            Text('BatteryLevel is [$label]'),
+            Text('BatteryLevel is $label%'),
           ],
         ),
       ),
@@ -76,9 +76,11 @@ class _HomePageState extends State<HomePage> {
       final result = await _platform.invokeMethod<int>('getBatteryLevel');
       return result;
     } on MissingPluginException catch (e) {
+      // invokeMethodsの受け口がネイティブコード側で用意されていない場合に到達する
       logger.warning(e);
       return null;
     } on PlatformException catch (e) {
+      // ネイティブ側でresultに`FlutterError`を渡すとここに到達する
       logger.warning(e);
       return null;
     }
