@@ -73,7 +73,14 @@ class _HomePageState extends State<HomePage> {
 
   Future<int?> getBatteryLevel() async {
     try {
-      final result = await _platform.invokeMethod<int>('getBatteryLevel');
+      final params = <String, dynamic>{
+        'name': 'my name is hoge',
+        'age': 25,
+      };
+      final result = await _platform.invokeMethod<int>(
+        'getBatteryLevel',
+        params,
+      );
       return result;
     } on MissingPluginException catch (e) {
       // invokeMethodsの受け口がネイティブコード側で用意されていない場合に到達する

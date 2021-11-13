@@ -9,6 +9,7 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import android.util.Log
 
 
 import io.flutter.embedding.android.FlutterActivity
@@ -21,6 +22,9 @@ class MainActivity: FlutterActivity() {
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
             // Note: this method is invoked on the main thread.
             if (call.method == "getBatteryLevel") {
+                val name = call.argument<String>("name").toString()
+                val age = call.argument<Int>("age")
+                Log.d("Android", "name = ${name}, age = $age")
                 val batteryLevel = getBatteryLevel()
                 if (batteryLevel != -1) {
                     result.success(batteryLevel)
